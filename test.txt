@@ -31,7 +31,7 @@ if (isset($account) && isset($passwd)) {
     FROM $dbname WHERE account = $account;
     $result = $conn->query($sql);
 }
-//取資料
+//取資料並回傳
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $out = Array();
