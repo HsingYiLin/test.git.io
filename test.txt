@@ -1,5 +1,9 @@
 //過濾掉input裡不該有的資料，取得input裡面的帳密，設監聽事件，
 //點擊click，傳送參數到php
+//php 接收到後一般都會過濾有沒有sql注入一些不該有的字眼(省略)
+//再去資料庫取資料
+//再回傳給js做一些畫面資料處理
+
 let account = document.getElementById("account").value;
 let password = document.getElementById("password").value;
 let btn = document.getElementById("btn");
