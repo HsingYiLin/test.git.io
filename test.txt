@@ -1,0 +1,48 @@
+//過濾掉input裡不該有的資料，取得input裡面的帳密，設監聽事件，
+//點擊click，傳送參數到php
+let account = document.getElementById("account").value;
+let password = document.getElementById("password").value;
+let btn = document.getElementById("btn");
+let url = "轉導php";
+
+if(account != "" && password != ""){
+    btn.addEventListener("click",makeRequest(account,password));
+}
+
+function makeRequest(acc,pwd) {
+    xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true,"account?"+acc+"&passwd?"+pwd);
+    xhr.send();
+}
+
+<?php
+$servername = "localhost";
+$dbname = "myDB";
+$account = $_GET["account"];
+$passwd = $_GET["password"];
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+if (isset($account) && isset($passwd)) {
+    $sql = "SELECT id, account, name, nickname,
+    birthday, phone, email, last_login_time, status  
+    FROM $dbname WHERE account = $account;
+    $result = $conn->query($sql);
+}
+//取資料
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $out = Array();
+        $out= $result->f("id");
+        $out= $result->f("account");
+        $out= $result->f("name");...
+    }
+    echo json_encode($out);
+
+} else {
+  echo "no data";
+}
+$conn->close();
+?>
